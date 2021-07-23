@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,4 +33,13 @@ public class EpisodeRessource {
             return Response.status(Status.CREATED).entity(episode).build();
     }
 
+    @GET
+    @Path("/test/{episode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Episode> getEpisodeV1(@PathParam("episode") String episode){
+        if (episode != null){
+            return Episode.findByEpisode(episode);
+        }
+        return Episode.listAll();
+    }
 }
