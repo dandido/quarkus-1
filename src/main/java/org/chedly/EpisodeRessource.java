@@ -58,7 +58,7 @@ public class EpisodeRessource {
 
     @GET
     @Path("/stream")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     public String streamReturn(){
         return Episode.<Episode>listAll().stream().map(e -> e.title.toUpperCase()).collect(Collectors.joining());
     }
