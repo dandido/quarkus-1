@@ -1,7 +1,9 @@
 package org.chedly;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.Repository.EpisodeRepository;
 import org.chedly.Model.Episode;
 
 @Path("/episode")
@@ -41,5 +44,22 @@ public class EpisodeRessource {
             return Episode.findByEpisode(episode);
         }
         return Episode.listAll();
+    }
+
+    @Inject
+    EpisodeRepository episodeRepository;
+    @GET
+    @Path("/Repo/{episode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Episode> getEpisodeRepo(@PathParam("episode") String episode){
+            return episodeRepository.findByEpisode(episode);
+    }
+
+
+    @GET
+    @Path("/stream")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String streamReturn(){
+        return Episode.<Episode>listAll().stream().map(e -> e.title.toUpperCase()).collect(Collectors.joining());
     }
 }
