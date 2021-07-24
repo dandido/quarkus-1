@@ -55,7 +55,6 @@ public class EpisodeRessource {
             return episodeRepository.findByEpisode(episode);
     }
 
-
     @GET
     @Path("/stream")
     @Produces(MediaType.TEXT_PLAIN)
